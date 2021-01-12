@@ -1,0 +1,71 @@
+name: "Template - Static Code Analysis (CodeQL)"
+
+on:
+  push:
+    branches:
+      - workflow_templates
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  CodeQL-Build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        # We must fetch at least the immediate parents so that if this is
+        # a pull request then we can checkout the head.
+        fetch-depth: 2
+
+    - name: Setup Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    # If this run was triggered by a pull request event, then checkout
+    # the head of the pull request instead of the merge commit.
+    - run: git checkout HEAD^2
+      if: ${{ github.event_name == 'pull_request' }}
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: java
+        config-file: ./.github/codeql-config.yml
+
+    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
+    # If this step fails, then you should remove it and run the build manually (see below)
+    #- name: Autobuild
+    #  uses: github/codeql-action/autobuild@v1
+    #  env:
+    #      ORG_GRADLE_PROJECT_maven_user: ${{ secrets.MAVEN_USERNAME }}
+    #      ORG_GRADLE_PROJECT_maven_password: ${{ secrets.MAVEN_PASSWORD }}
+    #      ORG_GRADLE_PROJECT_eevee_maven_url: ${{ secrets.MAVEN_URL }}
+    # Below action pinned to https://github.com/eskatos/gradle-command-action/commit/c6b57b9c8c4f72268b10f151623ce6a2855c6387
+    - name: Gradle Build
+      uses: eskatos/gradle-command-action@c6b57b9c8c4f72268b10f151623ce6a2855c6387
+      env:
+          ORG_GRADLE_PROJECT_maven_user: ${{ secrets.CODEQL_READONLY_MAVEN_USERNAME }}
+          ORG_GRADLE_PROJECT_maven_password: ${{ secrets.CODEQL_READONLY_MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_eevee_maven_url: ${{ secrets.CODEQL_READONLY_MAVEN_URL }}
+      with:
+        arguments: build -x test
+        # Not all microservices use spotbugs which in turn causes the SCA build to fail: build -x test -x spotbugsMain -x testClasses -x spotbugsTest
+
+    # ℹ️ Command-line programs to run using the OS shell.
+    # 📚 https://git.io/JvXDl
+
+    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
+    #    and modify them (or add more) to build your code if your project
+    #    uses a compiled language
+
+    #- run: |
+    #   make bootstrap
+    #   make release
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1

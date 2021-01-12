@@ -1,0 +1,8 @@
+{
+    "name": "Mettle CodeQL Workflow",
+    "description": "Mettle static code analysis (using CodeQL) workflow.",
+    "iconName": "police",
+    "categories": [
+        "Java"
+    ]
+}
