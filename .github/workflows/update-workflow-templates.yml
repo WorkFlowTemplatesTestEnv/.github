@@ -15,7 +15,7 @@ jobs:
       with:
         # We must fetch at least the immediate parents so that if this is
         # a pull request then we can checkout the head.
-        fetch-depth: 2
+        fetch-depth: 3
 
     # - run: git diff --quiet HEAD^ HEAD -- workflow-templates/ || echo True > TEMPLATES_CHANGED
     # Really need to find a way to put a condition in front of this next action. 
