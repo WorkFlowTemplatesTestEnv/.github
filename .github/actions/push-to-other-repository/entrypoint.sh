@@ -50,7 +50,7 @@ function pushTemplateToRepository() {
 }
 
 while read repo; do
-  pushTemplateToRepository($repo)
+  pushTemplateToRepository $repo
 done <repositories.list
 
 # if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
