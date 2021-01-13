@@ -19,7 +19,7 @@ function pushTemplateToRepository() {
   # Setup git
   # git config --global user.email "$USER_EMAIL"
   # git config --global user.name "$DESTINATION_GITHUB_USERNAME"
-  git clone --single-branch --branch master "https://$WORKFLOWTEMPLATESTESTENV_APP_CLIENT_SECRET@github.com/$REPOSITORY.git" "$CLONE_DIR"
+  git clone --single-branch --branch master "https://$API_TOKEN_GITHUB@github.com/$REPOSITORY.git" "$CLONE_DIR"
   ls -la "$CLONE_DIR"
 
   TARGET_DIR=$(mktemp -d)
