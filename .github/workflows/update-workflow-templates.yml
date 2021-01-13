@@ -17,8 +17,11 @@ jobs:
         # a pull request then we can checkout the head.
         fetch-depth: 2
 
+    # - run: git diff --quiet HEAD^ HEAD -- workflow-templates/ || echo True > TEMPLATES_CHANGED
+    # Really need to find a way to put a condition in front of this next action. 
+
     - name: Pushes to another repository
-      if: ${{ git diff --quiet HEAD^ HEAD -- workflow-templates/ }}
+      # if: ${{ git diff --quiet HEAD^ HEAD -- workflow-templates/ }}
       uses: ./push-to-other-repositories/action
       env:
         API_TOKEN_GITHUB: ${{ secrets.WORKFLOWTEMPLATESTESTENV_APP_CLIENT_SECRET }}
