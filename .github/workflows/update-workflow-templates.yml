@@ -10,18 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Check out repository
       uses: actions/checkout@v2
-
-    # - run: git diff --quiet HEAD^ HEAD -- workflow-templates/ || echo True > TEMPLATES_CHANGED
-    # Really need to find a way to put a condition in front of this next action. 
-
     - name: Pushes to another repository
-      # if: ${{ git diff --quiet HEAD^ HEAD -- workflow-templates/ }}
       uses: ./.github/actions/action
       env:
         API_TOKEN_GITHUB: ${{ secrets.WORKFLOWTEMPLATESTESTENV_APP_CLIENT_SECRET }}
       with:
         source-directory: 'workflow-templates'
-        # destination-github-username: '<dest-user>'
-        # destination-repository-name: '<dest-repo'
+
+# if: ${{ git diff --quiet HEAD^ HEAD -- workflow-templates/ }}
+# - run: git diff --quiet HEAD^ HEAD -- workflow-templates/ || echo True > TEMPLATES_CHANGED
+# Really need to find a way to put a condition in front of this next action. 
