@@ -13,7 +13,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v2
     - name: Pushes to another repository
-      uses: WorkFlowTemplatesTestEnv/.github/.github/actions/push-to-other-repository/action
+      uses: WorkFlowTemplatesTestEnv/.github/.github/actions/push-to-other-repository@master
       env:
         API_TOKEN_GITHUB: ${{ secrets.WORKFLOWTEMPLATESTESTENV_APP_CLIENT_SECRET }}
       with:
