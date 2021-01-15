@@ -16,7 +16,7 @@ function pushTemplateToRepository() {
   CLONE_DIR=$(mktemp -d)
 
   # Get GitHub App Installation token
-  INSTALLATION_TOKEN=${ruby /generateJWT.rb}
+  INSTALLATION_TOKEN=$(ruby /generateJWT.rb)
 
   echo "Cloning destination git repository"
   # Setup git
