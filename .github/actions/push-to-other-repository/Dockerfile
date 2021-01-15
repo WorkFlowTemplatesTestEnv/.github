@@ -1,10 +1,11 @@
-FROM cws/base:2013-07-01
+FROM alpine:3.12
 
 RUN apk add --no-cache git
+RUN apk --no-cache add curl
 
 # Install Ruby - maybe we should go with Python or just plain Bash for the generateJWT script
 # Download the ruby-build code
-RUN \curl -L https://github.com/sstephenson/ruby-build/archive/v20130518.tar.gz | tar -zxvf - -C /tmp/
+RUN /curl -L https://github.com/sstephenson/ruby-build/archive/v20130518.tar.gz | tar -zxvf - -C /tmp/
 
 # Install ruby-build
 RUN cd /tmp/ruby-build-* && ./install.sh && cd / && rm -rfv /tmp/ruby-build-master
