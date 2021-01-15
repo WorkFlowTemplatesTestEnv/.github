@@ -1,6 +1,8 @@
 FROM ruby:latest
 
 RUN apt-get install git
+RUN gem install openssl jwt
+
 # RUN apk --no-cache add curl
 # RUN apk add --no-cache bash
 
