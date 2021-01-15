@@ -1,0 +1,20 @@
+require 'openssl'
+require 'jwt'  # https://rubygems.org/gems/jwt
+
+# Private key contents
+# private_pem = File.read("/Users/seb.d/Mettle/WorkFlowTemplatesTestEnv/workflowtemplatestestenv-app.2021-01-12.private-key.pem")
+private_pem = ENV['APP_PRIVATE_KEY']
+private_key = OpenSSL::PKey::RSA.new(private_pem)
+
+# Generate the JWT
+payload = {
+  # issued at time
+  iat: Time.now.to_i,
+  # JWT expiration time (10 minute maximum)
+  exp: Time.now.to_i + (10 * 60),
+  # GitHub App's identifier
+  iss: 95902
+}
+
+jwt = JWT.encode(payload, private_key, "RS256")
+puts jwt

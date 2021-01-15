@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 set -e  # if a command fails it stops the execution
 set -u  # script fails if trying to access to an undefined variable
@@ -15,11 +15,14 @@ function pushTemplateToRepository() {
   REPOSITORY=$1
   CLONE_DIR=$(mktemp -d)
 
+  # Get GitHub App Installation token
+  INSTALLATION_TOKEN=${ruby /generateJWT.rb}
+
   echo "Cloning destination git repository"
   # Setup git
   # git config --global user.email "$USER_EMAIL"
   # git config --global user.name "$DESTINATION_GITHUB_USERNAME"
-  git clone --single-branch --branch master "https://$API_TOKEN_GITHUB@github.com/$REPOSITORY.git" "$CLONE_DIR"
+  git clone --single-branch --branch master "https://$INSTALLATION_TOKEN@github.com/$REPOSITORY.git" "$CLONE_DIR"
   ls -la "$CLONE_DIR"
 
   TARGET_DIR=$(mktemp -d)
