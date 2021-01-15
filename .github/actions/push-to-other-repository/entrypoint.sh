@@ -20,8 +20,8 @@ function pushTemplateToRepository() {
 
   echo "Cloning destination git repository"
   # Setup git
-  # git config --global user.email "$USER_EMAIL"
-  # git config --global user.name "$DESTINATION_GITHUB_USERNAME"
+  git config --global user.email "sebastian.dugudae@mettle.co.uk"
+  git config --global user.name "sebastiandugudae"
   git clone --single-branch --branch master "https://$INSTALLATION_TOKEN@github.com/$REPOSITORY.git" "$CLONE_DIR"
   ls -la "$CLONE_DIR"
 
