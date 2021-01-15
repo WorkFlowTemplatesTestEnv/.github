@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM cws/base:2013-07-01
 
 RUN apk add --no-cache git
 
