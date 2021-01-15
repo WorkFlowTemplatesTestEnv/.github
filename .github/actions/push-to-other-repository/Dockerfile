@@ -13,6 +13,10 @@ RUN apk update && \
     apk add $BUILD_PACKAGES && \
     apk add $RUBY_PACKAGES && \
     rm -rf /var/cache/apk/*
+RUN mkdir /usr/app
+WORKDIR /usr/app
+COPY Gemfile /usr/app/
+COPY Gemfile.lock /usr/app/
 RUN bundle install
 
 # # Install Ruby - maybe we should go with Python or just plain Bash for the generateJWT script
