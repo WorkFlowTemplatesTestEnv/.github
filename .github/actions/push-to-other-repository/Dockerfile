@@ -2,6 +2,7 @@ FROM alpine:3.12
 
 RUN apk add --no-cache git
 RUN apk --no-cache add curl
+RUN apk add --no-cache bash
 
 # Install Ruby - maybe we should go with Python or just plain Bash for the generateJWT script
 # Download the ruby-build code
