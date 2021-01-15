@@ -1,23 +1,23 @@
-FROM alpine:3.12
+FROM ruby:latest
 
 RUN apk add --no-cache git
 # RUN apk --no-cache add curl
 # RUN apk add --no-cache bash
 
-ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base
-ENV RUBY_PACKAGES ruby ruby-io-console ruby-bundler
-# Update and install all of the required packages.
-# At the end, remove the apk cache
-RUN apk update && \
-    apk upgrade && \
-    apk add $BUILD_PACKAGES && \
-    apk add $RUBY_PACKAGES && \
-    rm -rf /var/cache/apk/*
-RUN mkdir /usr/app
-WORKDIR /usr/app
-COPY Gemfile /usr/app/
-COPY Gemfile.lock /usr/app/
-RUN bundle install
+# ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base
+# ENV RUBY_PACKAGES ruby ruby-io-console ruby-bundler
+# # Update and install all of the required packages.
+# # At the end, remove the apk cache
+# RUN apk update && \
+#     apk upgrade && \
+#     apk add $BUILD_PACKAGES && \
+#     apk add $RUBY_PACKAGES && \
+#     rm -rf /var/cache/apk/*
+# RUN mkdir /usr/app
+# WORKDIR /usr/app
+# COPY Gemfile /usr/app/
+# COPY Gemfile.lock /usr/app/
+# RUN bundle install
 
 # # Install Ruby - maybe we should go with Python or just plain Bash for the generateJWT script
 # # Download the ruby-build code
