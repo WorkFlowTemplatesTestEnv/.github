@@ -2,7 +2,6 @@ require 'openssl'
 require 'jwt'  # https://rubygems.org/gems/jwt
 
 # Private key contents
-# private_pem = File.read("/Users/seb.d/Mettle/WorkFlowTemplatesTestEnv/workflowtemplatestestenv-app.2021-01-12.private-key.pem")
 private_pem = ENV['APP_PRIVATE_KEY']
 private_key = OpenSSL::PKey::RSA.new(private_pem)
 
