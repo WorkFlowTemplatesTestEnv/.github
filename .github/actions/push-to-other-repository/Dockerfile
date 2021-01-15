@@ -1,6 +1,6 @@
 FROM ruby:latest
 
-RUN apt-get git
+RUN apt-get install git
 # RUN apk --no-cache add curl
 # RUN apk add --no-cache bash
 
